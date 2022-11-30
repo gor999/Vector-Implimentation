@@ -2,10 +2,13 @@
 template<typename X> class Vector{
     private:
         X* m_arr = nullptr;
-        int m_size = 0;
-        int m_capacity = 0;
+        int m_size;
+        int m_capacity;
     public:
-        Vector() = default;
+        Vector():
+		m_capacity(0),
+		m_size(0)
+		{};
         ~Vector();
         Vector(int size);
         Vector(const std::initializer_list<X> &list); //Constructor for parametres
@@ -50,16 +53,14 @@ void Vector<X>:: clear(){
 template<typename X>
 void Vector<X>::push_back(X elem){
     if(m_size == m_capacity){
-        m_capacity *=2;
-        X *temp = new X[m_capacity];
+        X *temp = new X[m_capacity + 1 * 2];
         for(int i = 0; i < m_size; ++i){
             temp[i] = m_arr[i];
         }
         delete m_arr;
         m_arr = temp;
     }
-    m_arr[m_size] = elem;
-    ++m_size;
+    m_arr[m_size++] = elem;
 }
 template<typename X>
 void Vector<X>::pop_back(){
